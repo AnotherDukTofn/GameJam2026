@@ -20,11 +20,14 @@ public class PlayerManager : MonoBehaviour {
     [Header("Oxy Config")]
     [SerializeField] private float baseOxy;
 
+    [Header("Status")]
+    public Poison CurrentPoison;
+
     #endregion
 
     #region Unity Lifecycles
 
-    public void Awake() {
+    private void Awake() {
         currentMoveSpeed = baseMoveSpeed;
         Input = GetComponent<InputHandler>();
         Move = new MoveSystem(GetComponent<Rigidbody2D>(), baseMoveSpeed);
@@ -34,6 +37,15 @@ public class PlayerManager : MonoBehaviour {
 
     private void Update() {
         Move.Move(Input.MoveInput);
+        
+        if (Input.SwitchMask != 0) {
+            SwitchMask(Input.SwitchMask);
+            Input.ResetSwitchMask();
+        }
+
+        if (CurrentPoison != null) {
+            Damage.ApplyDamage(CurrentPoison);
+        }
     }
 
     #endregion
@@ -47,6 +59,14 @@ public class PlayerManager : MonoBehaviour {
 
     public void ResetMoveSpeed() {
         currentMoveSpeed = baseMoveSpeed;
+    }
+
+    #endregion
+
+    #region Logic
+
+    private void SwitchMask(int id) {
+        Damage.Mask.SetMask(id);
     }
 
     #endregion

@@ -14,6 +14,7 @@ public class HealthSystem {
     public void Hurt(float amount) {
         CurrentHealth -= amount;
         if (CurrentHealth < 0) CurrentHealth = 0;
+        Debug.Log("[HealthSystem] Current Health: " + CurrentHealth);
     }
 
     public void Heal() {

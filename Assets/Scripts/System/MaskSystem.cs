@@ -12,7 +12,7 @@ public class MaskSystem  {
         green = new GreenMask();
         yellow = new YellowMask();
         purple = new PurpleMask();
-        currentMask = green;
+        SetMask(1);
     }
 
     private Mask FindByID(int id) {
@@ -23,16 +23,18 @@ public class MaskSystem  {
 
     public void SetMask(int id) {
         switch (id) {
-            case 0: 
+            case 1: 
             currentMask = green;
             break;
-            case 1: 
+            case 2: 
             currentMask = yellow;
             break;
-            case 2: 
+            case 3: 
             currentMask = purple;
             break;
         }
+
+        Debug.Log("[MaskSystem] Current Mask: " + currentMask.GetType().Name);
     }
 
     public bool MaskBlocked(Poison poison) {

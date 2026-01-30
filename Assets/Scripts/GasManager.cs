@@ -29,7 +29,7 @@ public class GasManager : MonoBehaviour {
         if (pm == null) return;
         
         Debug.Log("[GasManager] Enter Range: " + collision.gameObject.name);
-        pm.Damage.ApplyDamage(poison);
+        pm.CurrentPoison = poison;
         pm.ModifyMoveSpeed(-poison.SlowFactor);
     }
 
@@ -40,6 +40,7 @@ public class GasManager : MonoBehaviour {
         if (pm == null) return;
         
         Debug.Log("[GasManager] Exit Range: " + collision.gameObject.name);
+        pm.CurrentPoison = null;
         pm.ResetMoveSpeed();
     }
 }

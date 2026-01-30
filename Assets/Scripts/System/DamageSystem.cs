@@ -1,4 +1,4 @@
-using UnityEngine.UIElements;
+using UnityEngine;
 
 public class DamageSystem {
     public MaskSystem Mask { get; private set; }
@@ -13,7 +13,8 @@ public class DamageSystem {
     }
 
     public void ApplyDamage(Poison poison) {
+        Debug.Log($"[DamageSystem] MaskBlocked: {Mask.MaskBlocked(poison)}, OutOfOxy: {Oxy.OutOfOxy()}");
         if (Mask.MaskBlocked(poison) && !Oxy.OutOfOxy()) return;
         else Health.Hurt(poison.Damage);
-    }   
+    }
 }
