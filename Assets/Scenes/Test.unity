@@ -1572,7 +1572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   baseMoveSpeed: 10
   currentMoveSpeed: 0
-  baseHealth: 70
+  baseHealth: 100
   healAmount: 25
   baseOxy: 100
 --- !u!61 &1779625845

@@ -13,13 +13,13 @@ public abstract class Poison {
 }
 
 public class GreenPoison : Poison {
-    public GreenPoison() : base(ID: 0, damage: 0.05f, corrosion: 0.025f, slowFactor: 0.5f) { }
+    public GreenPoison() : base(ID: 0, damage: 0.4f, corrosion: 0.025f, slowFactor: 0.5f) { }
 }
 
 public class YellowPoison : Poison {
-    public YellowPoison() : base(ID: 1, damage: 0.035f, corrosion: 0.015f, slowFactor: 0.3f) { }
+    public YellowPoison() : base(ID: 1, damage: 0.267f, corrosion: 0.015f, slowFactor: 0.3f) { }
 }
 
 public class PurplePoison : Poison {
-    public PurplePoison() : base(ID: 2, damage: 0.025f, corrosion: 0.015f, slowFactor: 0.5f) { }
+    public PurplePoison() : base(ID: 2, damage: 0.2f, corrosion: 0.015f, slowFactor: 0.5f) { }
 }
