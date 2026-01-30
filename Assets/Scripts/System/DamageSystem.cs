@@ -13,11 +13,12 @@ public class DamageSystem {
     }
 
     public void ApplyDamage(Poison poison) {
-        if (Mask.MaskBlocked(poison) && !Oxy.OutOfOxy()) {
+        if (!Oxy.OutOfOxy()) {
             Oxy.ModifyOxy(Mask.GetCurrentMaskOxyCost());
-            return;
         }
-        
-        Health.Hurt(poison.Damage);
+
+        if (!Mask.MaskBlocked(poison) || Oxy.OutOfOxy()) {
+            Health.Hurt(poison.Damage);
+        }
     }
 }

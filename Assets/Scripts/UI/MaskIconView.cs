@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class MaskView : MonoBehaviour {
+public class MaskIconView : MonoBehaviour {
     [Header("Settings")]
     [SerializeField] private Vector2 selectedSize;
     [SerializeField] private Vector2 normalSize;
@@ -15,10 +15,10 @@ public class MaskView : MonoBehaviour {
 
     private void Awake() {
         _maskRects = new List<RectTransform>();
-        _targetIdx = 0;
         foreach (var mask in masks) {
-            if (mask != null) _maskRects.Add(mask.rectTransform);
+            _maskRects.Add(mask.GetComponent<RectTransform>());
         }
+        _targetIdx = 0;
     }
 
     public void SetMaskView(int idx) {
