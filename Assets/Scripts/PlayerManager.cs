@@ -36,16 +36,18 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Update() {
-        Move.Move(Input.MoveInput);
-        
         if (Input.SwitchMask != 0) {
             SwitchMask(Input.SwitchMask);
             Input.ResetSwitchMask();
         }
+    }
 
+    private void FixedUpdate() {
         if (CurrentPoison != null) {
             Damage.ApplyDamage(CurrentPoison);
         }
+
+        Move.Move(Input.MoveInput);
     }
 
     #endregion

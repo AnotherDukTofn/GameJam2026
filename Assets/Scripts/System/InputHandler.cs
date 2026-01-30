@@ -27,7 +27,7 @@ public class InputHandler : MonoBehaviour {
             SwitchMask = 3;
             Debug.Log("[InputHandler] SwitchPurple pressed");
         }
-       }
+    }
 
     public void ResetSwitchMask() {
         SwitchMask = 0;
