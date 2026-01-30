@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour {
     #region Logic
 
     private void SwitchMask(int id) {
-        Damage.Mask.SetMask(id);
+        Damage.Mask.SetMask(id - 1);
     }
 
     #endregion

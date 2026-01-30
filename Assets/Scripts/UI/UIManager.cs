@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class UIManager : MonoBehaviour {
     [Header("Oxy UI")]
@@ -8,6 +9,9 @@ public class UIManager : MonoBehaviour {
     
     [Header("Health UI")]
     [SerializeField] private ProgressionBarView healthBar;
+
+    [Header("Mask UI")]
+    [SerializeField] private MaskView maskView;
     
     [Header("References")]
     [SerializeField] private PlayerManager pm;
@@ -25,17 +29,18 @@ public class UIManager : MonoBehaviour {
     private void OnEnable() {
         pm.Damage.Oxy.OnTankChange += ModifyTankCount;
         pm.Damage.Health.OnHealthChange += ModifyHealthBar;
+        pm.Damage.Mask.OnMaskChange += ModifyMaskView;
     }
 
     private void Start() {
-        // Khởi tạo giá trị ban đầu cho UI
-        Debug.Log($"[UIManager] Start - CurrentHealth: {playerHealth.CurrentHealth}, MaxHealth: {playerHealth.MaxHealth}");
         ModifyHealthBar(playerHealth.CurrentHealth, playerHealth.MaxHealth);
+        ModifyTankCount(playerOxy.TankLeft);
     }
 
     private void OnDisable() {
         pm.Damage.Oxy.OnTankChange -= ModifyTankCount;
         pm.Damage.Health.OnHealthChange -= ModifyHealthBar;
+        pm.Damage.Mask.OnMaskChange -= ModifyMaskView;
     }
 
     private void Update() {
@@ -52,6 +57,10 @@ public class UIManager : MonoBehaviour {
 
     private void ModifyHealthBar(float currentHealth, float maxHealth) {
         healthBar.ModifyFillAmount(currentHealth, maxHealth);
+    }
+
+    private void ModifyMaskView(int id) {
+        maskView.SetMaskView(id);
     }
 
     #endregion

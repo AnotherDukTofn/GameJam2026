@@ -11,7 +11,7 @@ public abstract class Poison {
         SlowFactor = slowFactor;
     }
 }
-
+ 
 public class GreenPoison : Poison {
     public GreenPoison() : base(ID: 0, damage: 0.4f, corrosion: 0.025f, slowFactor: 0.5f) { }
 }

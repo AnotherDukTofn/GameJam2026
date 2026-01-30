@@ -20,7 +20,7 @@ public class HealthSystem {
         if (CurrentHealth < 0) CurrentHealth = 0;
         if (CurrentHealth != oldHealth) {
             OnHealthChange?.Invoke(CurrentHealth, MaxHealth);
-            Debug.Log("[HealthSystem] Current Health: " + CurrentHealth);
+            Debug.Log("[HealthSystem] Current Health: " + CurrentHealth + "/" + MaxHealth);
         }
     }
     public void Heal() {
@@ -29,7 +29,7 @@ public class HealthSystem {
         if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
         if (CurrentHealth != oldHealth) { 
             OnHealthChange?.Invoke(CurrentHealth, MaxHealth);
-            Debug.Log("[HealthSystem] Current Health: " + CurrentHealth);
+            Debug.Log("[HealthSystem] Current Health: " + CurrentHealth + "/" + MaxHealth);
         }
     }
 

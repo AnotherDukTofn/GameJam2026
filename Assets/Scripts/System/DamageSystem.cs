@@ -13,8 +13,11 @@ public class DamageSystem {
     }
 
     public void ApplyDamage(Poison poison) {
-        Debug.Log($"[DamageSystem] MaskBlocked: {Mask.MaskBlocked(poison)}, OutOfOxy: {Oxy.OutOfOxy()}");
-        if (Mask.MaskBlocked(poison) && !Oxy.OutOfOxy()) return;
-        else Health.Hurt(poison.Damage);
+        if (Mask.MaskBlocked(poison) && !Oxy.OutOfOxy()) {
+            Oxy.ModifyOxy(Mask.GetCurrentMaskOxyCost());
+            return;
+        }
+        
+        Health.Hurt(poison.Damage);
     }
 }

@@ -7,6 +7,7 @@ public class MaskSystem  {
     private Mask green, yellow, purple;
 
     public event Action<string> OnMaskBroken;
+    public event Action<int> OnMaskChange;
 
     public void Init() {
         green = new GreenMask();
@@ -23,22 +24,27 @@ public class MaskSystem  {
 
     public void SetMask(int id) {
         switch (id) {
-            case 1: 
+            case 0: 
             currentMask = green;
             break;
-            case 2: 
+            case 1: 
             currentMask = yellow;
             break;
-            case 3: 
+            case 2: 
             currentMask = purple;
             break;
         }
 
+        OnMaskChange?.Invoke(id);
         Debug.Log("[MaskSystem] Current Mask: " + currentMask.GetType().Name);
     }
 
     public bool MaskBlocked(Poison poison) {
         return CurrentMaskUsable() && ValidID(poison);
+    }
+
+    public float GetCurrentMaskOxyCost() {
+        return currentMask != null ? currentMask.OxyCost : 0f;
     }
 
     private bool CurrentMaskUsable() => currentMask.CurrentDurability > 0;
