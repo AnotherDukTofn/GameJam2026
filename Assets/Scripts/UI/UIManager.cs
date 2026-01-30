@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private ProgressionBarView healthBar;
 
     [Header("Mask UI")]
-    [SerializeField] private MaskView maskView;
+    [SerializeField] private MaskIconView maskIconView;
     
     [Header("References")]
     [SerializeField] private PlayerManager pm;
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour {
     }
 
     private void ModifyMaskView(int id) {
-        maskView.SetMaskView(id);
+        maskIconView.SetMaskView(id);
     }
 
     #endregion
