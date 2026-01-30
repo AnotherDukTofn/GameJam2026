@@ -27,6 +27,12 @@ public class UIManager : MonoBehaviour {
         pm.Damage.Health.OnHealthChange += ModifyHealthBar;
     }
 
+    private void Start() {
+        // Khởi tạo giá trị ban đầu cho UI
+        Debug.Log($"[UIManager] Start - CurrentHealth: {playerHealth.CurrentHealth}, MaxHealth: {playerHealth.MaxHealth}");
+        ModifyHealthBar(playerHealth.CurrentHealth, playerHealth.MaxHealth);
+    }
+
     private void OnDisable() {
         pm.Damage.Oxy.OnTankChange -= ModifyTankCount;
         pm.Damage.Health.OnHealthChange -= ModifyHealthBar;
