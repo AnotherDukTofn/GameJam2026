@@ -4,19 +4,23 @@ using UnityEngine;
 public class OxySystem {
     public float MaxOxy { get; private set; }
     public float CurrentOxy { get; private set; }
-    private int _oxyTankLeft;
+    private int _oxyTankLeft = 3;
+    public int TankLeft => _oxyTankLeft;
 
     public event Action<int> OnTankChange;
+    public event Action<float, float> OnOxyChange;
 
     public OxySystem(float maxOxy) {
         MaxOxy = maxOxy;
         CurrentOxy = MaxOxy;
+        Debug.Log("[OxySystem] Oxy System Initialized, Oxy Tank Left: " + _oxyTankLeft);
     }
 
     private void ChangeTank() {
         CurrentOxy = MaxOxy;
         _oxyTankLeft--;
         OnTankChange?.Invoke(_oxyTankLeft);
+        OnOxyChange?.Invoke(CurrentOxy, MaxOxy);
     }
 
     public void AddTank() {
@@ -25,7 +29,20 @@ public class OxySystem {
     }
 
     public void ModifyOxy(float amount) {
+        float oldOxy = CurrentOxy;
         CurrentOxy -= amount;
+        Debug.Log("[OxySystem] Current Oxy: " + CurrentOxy + "/" + MaxOxy);
+        if (CurrentOxy <= 0) {
+            if (_oxyTankLeft > 0) {
+                ChangeTank();
+            } else {
+                CurrentOxy = 0;
+            }
+        }
+        
+        if (CurrentOxy != oldOxy) {
+            OnOxyChange?.Invoke(CurrentOxy, MaxOxy);
+        }
     }
 
     public bool OutOfOxy() => CurrentOxy <= 0 && _oxyTankLeft <= 0;
