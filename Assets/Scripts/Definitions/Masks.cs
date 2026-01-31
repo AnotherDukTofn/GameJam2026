@@ -18,13 +18,13 @@ public abstract class Mask {
 }
 
 public class GreenMask : Mask {
-    public GreenMask() : base(cost: 0.2f, id: 0, dura: 100f) { }
+    public GreenMask() : base(cost: 0.25f, id: 0, dura: 100f) { }
 }
 
 public class YellowMask : Mask {
-    public YellowMask() : base(cost: 0.125f, id: 1, dura: 100f) { }
+    public YellowMask() : base(cost: 0.15f, id: 1, dura: 100f) { }
 }
 
 public class PurpleMask : Mask {
-    public PurpleMask() : base(cost: 0.075f, id: 2, dura: 100f) { }
+    public PurpleMask() : base(cost: 0.1f, id: 2, dura: 100f) { }
 }

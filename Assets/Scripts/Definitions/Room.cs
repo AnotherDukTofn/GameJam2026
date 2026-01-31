@@ -5,7 +5,7 @@ public class Room : MonoBehaviour {
     [SerializeField] private Camera mainCam;
 
     private void Awake() {
-        mainCam = Camera.main;
+        mainCam ??= Camera.main;
         transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 
