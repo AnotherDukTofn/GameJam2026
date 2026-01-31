@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class DamageSystem {
     public MaskSystem Mask { get; private set; }
     public HealthSystem Health { get; private set; }

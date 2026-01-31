@@ -4,7 +4,7 @@ using UnityEngine;
 public class OxySystem {
     public float MaxOxy { get; private set; }
     public float CurrentOxy { get; private set; }
-    private int _oxyTankLeft = 3;
+    private int _oxyTankLeft = 0;
     public int TankLeft => _oxyTankLeft;
 
     public event Action<int> OnTankChange;

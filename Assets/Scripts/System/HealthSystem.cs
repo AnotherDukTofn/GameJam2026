@@ -16,7 +16,7 @@ public class HealthSystem {
         MaxHealth = maxHealth;
         _healAmount = healAmount;
         CurrentHealth = MaxHealth;
-        AidSprayLeft = 3;
+        AidSprayLeft = 0;
     }
 
     public void Hurt(float amount) {
