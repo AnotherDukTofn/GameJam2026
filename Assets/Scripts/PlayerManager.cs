@@ -61,6 +61,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void ResetMoveSpeed() {
         currentMoveSpeed = baseMoveSpeed;
+        Move.SetMoveSpeed(currentMoveSpeed);
     }
 
     #endregion
