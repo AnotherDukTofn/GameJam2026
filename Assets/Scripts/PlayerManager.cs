@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField] private float baseOxy;
 
     [Header("Status")]
+    public bool IsInvincible;
     public Poison CurrentPoison;
     [SerializeField] private bool _hasKey;
 
@@ -79,7 +80,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (CurrentPoison != null) {
+        if (CurrentPoison != null && !IsInvincible) {
             Damage.ApplyDamage(CurrentPoison);
         }
 

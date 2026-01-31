@@ -25,9 +25,11 @@ public class Tunnel : MonoBehaviour {
     }
 
     private IEnumerator TeleportSequence(Transform player, Hole from, Hole to) {
-        float initHealth = player.GetComponent<PlayerManager>().Damage.Health.CurrentHealth;
         if (_isTeleporting || to == null) yield break;
         _isTeleporting = true;
+
+        PlayerManager pm = player.GetComponent<PlayerManager>();
+        pm.IsInvincible = true;
 
         SpriteRenderer sr = player.GetComponent<SpriteRenderer>();
         Vector3 startPos = player.position;
@@ -78,7 +80,9 @@ public class Tunnel : MonoBehaviour {
         player.position = targetPos;
 
         _isTeleporting = false;
-        player.GetComponent<PlayerManager>().Damage.Health.SetCurrentHealth(initHealth);
+        pm.IsInvincible = false;
+        pm.CurrentPoison = null;
+        pm.ResetMoveSpeed();
         Debug.Log("[Tunnel] Teleport sequence complete");
     }
 }
