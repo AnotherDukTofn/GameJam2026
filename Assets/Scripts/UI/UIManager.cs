@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,6 +8,7 @@ public class UIManager : MonoBehaviour {
     
     [Header("Health UI")]
     [SerializeField] private ProgressionBarView healthBar;
+    [SerializeField] private CountView sprayCount;
 
     [Header("Mask UI")]
     [SerializeField] private MaskIconView maskIconView;
@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour {
 
     private void OnEnable() {
         pm.Damage.Oxy.OnTankChange += ModifyTankCount;
+        pm.Damage.Health.OnAidSprayChange += ModifySprayCount;
         pm.Damage.Health.OnHealthChange += ModifyHealthBar;
         pm.Damage.Mask.OnMaskChange += ModifyMaskView;
     }
@@ -35,10 +36,12 @@ public class UIManager : MonoBehaviour {
     private void Start() {
         ModifyHealthBar(playerHealth.CurrentHealth, playerHealth.MaxHealth);
         ModifyTankCount(playerOxy.TankLeft);
+        ModifySprayCount(playerHealth.AidSprayLeft);
     }
 
     private void OnDisable() {
         pm.Damage.Oxy.OnTankChange -= ModifyTankCount;
+        pm.Damage.Health.OnAidSprayChange -= ModifySprayCount;
         pm.Damage.Health.OnHealthChange -= ModifyHealthBar;
         pm.Damage.Mask.OnMaskChange -= ModifyMaskView;
     }
@@ -57,6 +60,10 @@ public class UIManager : MonoBehaviour {
 
     private void ModifyHealthBar(float currentHealth, float maxHealth) {
         healthBar.ModifyFillAmount(currentHealth, maxHealth);
+    }
+
+    private void ModifySprayCount(int value) {
+        sprayCount.SetText(value.ToString());
     }
 
     private void ModifyMaskView(int id) {
