@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Rendering;
+using System.Collections;
 
 public class UIManager : MonoBehaviour {
     [Header("Oxy UI")]
@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
 
     [Header("Mask UI")]
     [SerializeField] private MaskIconView maskIconView;
+
     
     [Header("References")]
     [SerializeField] private PlayerManager pm;
@@ -27,9 +28,9 @@ public class UIManager : MonoBehaviour {
     }
 
     private void OnEnable() {
-        pm.Damage.Oxy.OnTankChange += ModifyTankCount;
-        pm.Damage.Health.OnAidSprayChange += ModifySprayCount;
-        pm.Damage.Health.OnHealthChange += ModifyHealthBar;
+        playerOxy.OnTankChange += ModifyTankCount;
+        playerHealth.OnAidSprayChange += ModifySprayCount;
+        playerHealth.OnHealthChange += ModifyHealthBar;
         pm.Damage.Mask.OnMaskChange += ModifyMaskView;
     }
 
@@ -40,9 +41,9 @@ public class UIManager : MonoBehaviour {
     }
 
     private void OnDisable() {
-        pm.Damage.Oxy.OnTankChange -= ModifyTankCount;
-        pm.Damage.Health.OnAidSprayChange -= ModifySprayCount;
-        pm.Damage.Health.OnHealthChange -= ModifyHealthBar;
+        playerOxy.OnTankChange -= ModifyTankCount;
+        playerHealth.OnAidSprayChange -= ModifySprayCount;
+        playerHealth.OnHealthChange -= ModifyHealthBar;
         pm.Damage.Mask.OnMaskChange -= ModifyMaskView;
     }
 
