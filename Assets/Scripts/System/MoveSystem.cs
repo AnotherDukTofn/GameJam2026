@@ -16,4 +16,8 @@ public class MoveSystem {
     public void Move(Vector2 moveInput) {
         _rb.linearVelocity = moveInput.normalized * _moveSpeed;
     }
+
+    public void Stop() {
+        _rb.linearVelocity = Vector2.zero;
+    }
 }

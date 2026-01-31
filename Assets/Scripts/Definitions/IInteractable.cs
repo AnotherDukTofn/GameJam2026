@@ -1,3 +1,3 @@
 public interface IInteractable {
-    void Interact(PlayerManager pm) {}
+    bool Interact(PlayerManager pm);
 }
