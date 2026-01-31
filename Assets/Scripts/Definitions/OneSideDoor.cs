@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class OneSideDoor : MonoBehaviour, IInteractable {
     [SerializeField] private BoxCollider2D doorCollider;
-
-    [SerializeField] private Sprite visual;
     [SerializeField] private AudioManager audio;
     [SerializeField] private float openDir;
+    [SerializeField] private Sprite openSprite;
+    
+    private SpriteRenderer _sr;
 
     private void Awake() {
         doorCollider = GetComponent<BoxCollider2D>();
         doorCollider.enabled = true;
-        GetComponent<SpriteRenderer>().sprite = visual;
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     public bool Interact(PlayerManager pm) {
@@ -19,6 +20,7 @@ public class OneSideDoor : MonoBehaviour, IInteractable {
         }
         
         doorCollider.enabled = false;
+        if (openSprite != null) _sr.sprite = openSprite;
         return true;
     }
 }
