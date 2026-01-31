@@ -1,24 +1,23 @@
 using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable {
-    [SerializeField] private BoxCollider2D collider2D;
-    [SerializeField] private bool isOpen;
-    [SerializeField] private bool interact;
+    [SerializeField] private BoxCollider2D doorCollider;
+    [SerializeField] private AudioManager audio;
+    private bool isOpen = false;
 
     private void Awake() {
-        collider2D = GetComponent<BoxCollider2D>();
-        isOpen = false;
+        doorCollider = GetComponent<BoxCollider2D>();
+        doorCollider.enabled = true;
     }
 
-    private void Update() {
-        if (interact) {
-            isOpen = true;
-            Interact();
+    public void Interact(PlayerManager pm) {
+        if (isOpen) return; 
+        
+        isOpen = true;
+        doorCollider.enabled = false;
+        if (audio != null) {
+            audio.PlayAudioClip(audio.OpenDoorClip);
         }
-    }
-
-    public void Interact() {
-        if (!isOpen) return;
-        else collider2D.enabled = false;
+        Debug.Log("[Door] Door opened");
     }
 }
