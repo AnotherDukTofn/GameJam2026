@@ -10,6 +10,7 @@ public class HealthSystem {
     public event Action<float, float> OnHealthChange;
     public event Action<string> OnWarning;
     public event Action<int> OnAidSprayChange;
+    public event Action OnPlayerDie;
 
     public HealthSystem(float maxHealth, float healAmount) {
         MaxHealth = maxHealth;
@@ -25,6 +26,9 @@ public class HealthSystem {
         if (CurrentHealth != oldHealth) {
             OnHealthChange?.Invoke(CurrentHealth, MaxHealth);
             Debug.Log("[HealthSystem] Current Health: " + CurrentHealth + "/" + MaxHealth);
+            if (CurrentHealth <= 0) {
+                OnPlayerDie?.Invoke();
+            }
         }
     }
 

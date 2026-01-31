@@ -81,8 +81,6 @@ public class Tunnel : MonoBehaviour {
 
         _isTeleporting = false;
         pm.IsInvincible = false;
-        pm.CurrentPoison = null;
-        pm.ResetMoveSpeed();
         Debug.Log("[Tunnel] Teleport sequence complete");
     }
 }

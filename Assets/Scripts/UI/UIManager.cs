@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour {
     [Header("Mask UI")]
     [SerializeField] private MaskIconView maskIconView;
 
+    [Header("Death UI")]
+    [SerializeField] private CanvasGroup deathPanel;
+    [SerializeField] private float fadeDuration = 2f;
+
     
     [Header("References")]
     [SerializeField] private PlayerManager pm;
@@ -31,6 +35,7 @@ public class UIManager : MonoBehaviour {
         playerOxy.OnTankChange += ModifyTankCount;
         playerHealth.OnAidSprayChange += ModifySprayCount;
         playerHealth.OnHealthChange += ModifyHealthBar;
+        playerHealth.OnPlayerDie += ShowDeathPanel;
         pm.Damage.Mask.OnMaskChange += ModifyMaskView;
     }
 
@@ -44,6 +49,7 @@ public class UIManager : MonoBehaviour {
         playerOxy.OnTankChange -= ModifyTankCount;
         playerHealth.OnAidSprayChange -= ModifySprayCount;
         playerHealth.OnHealthChange -= ModifyHealthBar;
+        playerHealth.OnPlayerDie -= ShowDeathPanel;
         pm.Damage.Mask.OnMaskChange -= ModifyMaskView;
     }
 
@@ -69,7 +75,24 @@ public class UIManager : MonoBehaviour {
 
     private void ModifyMaskView(int id) {
         maskIconView.SetMaskView(id);
-    }   
+    }
+
+    private void ShowDeathPanel() {
+        StartCoroutine(FadeInDeathPanel());
+    }
+
+    private IEnumerator FadeInDeathPanel() {
+        deathPanel.gameObject.SetActive(true);
+        deathPanel.alpha = 0f;
+        
+        float elapsed = 0f;
+        while (elapsed < fadeDuration) {
+            elapsed += Time.deltaTime;
+            deathPanel.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeDuration);
+            yield return null;
+        }
+        deathPanel.alpha = 1f;
+    }
 
     #endregion
 }
