@@ -9,6 +9,7 @@ public class HealthSystem {
 
     public event Action<float, float> OnHealthChange;
     public event Action OnInventoryFull;
+    public event Action<int> OnAidSprayChange;
 
     public HealthSystem(float maxHealth, float healAmount) {
         MaxHealth = maxHealth;
@@ -31,6 +32,7 @@ public class HealthSystem {
         float oldHealth = CurrentHealth;
         CurrentHealth += _healAmount;
         AidSprayLeft--;
+        OnAidSprayChange?.Invoke(AidSprayLeft);
         if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
         if (CurrentHealth != oldHealth) { 
             OnHealthChange?.Invoke(CurrentHealth, MaxHealth);
@@ -49,6 +51,7 @@ public class HealthSystem {
             return false;
         }
         AidSprayLeft++;
+        OnAidSprayChange?.Invoke(AidSprayLeft);
         Debug.Log("[HealthSystem] Aid Spray picked up: " + AidSprayLeft + "/" + max);
         return true;
     }
@@ -61,6 +64,7 @@ public class HealthSystem {
 
     public void RefillAidSpray(int max) {
         AidSprayLeft = max;
+        OnAidSprayChange?.Invoke(AidSprayLeft);
         Debug.Log("[HealthSystem] Aid Spray Refilled: " + AidSprayLeft);
     }
 
