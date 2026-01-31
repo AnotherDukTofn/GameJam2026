@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private CanvasGroup deathPanel;
     [SerializeField] private float fadeDuration = 2f;
 
+    [Header("Interaction UI")]
+    [SerializeField] private GameObject interactPrompt;
+
     
     [Header("References")]
     [SerializeField] private PlayerManager pm;
@@ -37,6 +40,8 @@ public class UIManager : MonoBehaviour {
         playerHealth.OnHealthChange += ModifyHealthBar;
         playerHealth.OnPlayerDie += ShowDeathPanel;
         pm.Damage.Mask.OnMaskChange += ModifyMaskView;
+        pm.Interaction.OnInteractableEnter += ShowInteractPrompt;
+        pm.Interaction.OnInteractableExit += HideInteractPrompt;
     }
 
     private void Start() {
@@ -51,6 +56,8 @@ public class UIManager : MonoBehaviour {
         playerHealth.OnHealthChange -= ModifyHealthBar;
         playerHealth.OnPlayerDie -= ShowDeathPanel;
         pm.Damage.Mask.OnMaskChange -= ModifyMaskView;
+        pm.Interaction.OnInteractableEnter -= ShowInteractPrompt;
+        pm.Interaction.OnInteractableExit -= HideInteractPrompt;
     }
 
     private void Update() {
@@ -92,6 +99,14 @@ public class UIManager : MonoBehaviour {
             yield return null;
         }
         deathPanel.alpha = 1f;
+    }
+
+    private void ShowInteractPrompt() {
+        interactPrompt.SetActive(true);
+    }
+
+    private void HideInteractPrompt() {
+        interactPrompt.SetActive(false);
     }
 
     #endregion

@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,11 +7,15 @@ public class InteractionSystem : MonoBehaviour {
     private IInteractable _currentInteractable;
 
     public bool HasInteractable => _currentInteractable != null;
+    
+    public event Action OnInteractableEnter;
+    public event Action OnInteractableExit;
 
     public void OnTriggerEnter2D(Collider2D collision) {
         IInteractable interact = collision.GetComponent<IInteractable>();
         if (interact != null) {
             _currentInteractable = interact;
+            OnInteractableEnter?.Invoke();
             Debug.Log("[InteractionSystem] Interactable found: " + collision.gameObject.name);
         }
     }
@@ -19,6 +24,7 @@ public class InteractionSystem : MonoBehaviour {
         IInteractable interact = collision.GetComponent<IInteractable>();
         if (interact != null && interact == _currentInteractable) {
             _currentInteractable = null;
+            OnInteractableExit?.Invoke();
             Debug.Log("[InteractionSystem] Interactable left: " + collision.gameObject.name);
         }
     }
