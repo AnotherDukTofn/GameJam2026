@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour {
     public InteractionSystem Interaction { get; private set; }
     public AnimationSystem Anim { get; private set; }
     private Rigidbody2D _rb;
-    public AudioManager Audio { get; private set; }
+    [SerializeField] private AudioManager audio;
 
     [Header("Move Config")]
     [SerializeField] private float baseMoveSpeed;
@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour {
 
         if (Input.Interact) {
             Interaction.TryInteract();
-            Audio.PlayAudioClip(Audio.fixSound);
+            audio.PlayAudioClip(audio.FixClip);
             Input.ResetInteract();
         }
 
@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour {
             Move.Stop();
             Damage.Health.Heal();
             Anim.PlayHeal();
-            Audio.PlayAudioClip(Audio.healSound);
+            audio.PlayAudioClip(audio.HealClip);
             Input.ResetHeal();
         }
 
