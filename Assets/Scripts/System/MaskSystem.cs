@@ -6,7 +6,7 @@ public class MaskSystem  {
     [SerializeField] private string currentMaskName;
     private Mask green, yellow, purple;
 
-    public event Action<string> OnMaskBroken;
+    // public event Action<string> OnMaskBroken;
     public event Action<int> OnMaskChange;
 
     public void Init() {
