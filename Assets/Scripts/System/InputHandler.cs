@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,8 @@ public class InputHandler : MonoBehaviour {
     public int SwitchMask { get; private set; }
     public bool Interact { get; private set; }
     public bool Heal { get; private set; }
+
+    public event Action OnPausePressed;
     public void OnMove(InputAction.CallbackContext context) {
         MoveInput = context.ReadValue<Vector2>();
     }
@@ -29,6 +32,10 @@ public class InputHandler : MonoBehaviour {
             SwitchMask = 3;
             Debug.Log("[InputHandler] SwitchPurple pressed");
         }
+    }
+
+    public void OnPause(InputAction.CallbackContext context) {
+        if (context.performed) OnPausePressed?.Invoke();
     }
 
     public void ResetSwitchMask() {
