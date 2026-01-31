@@ -9,6 +9,9 @@ public class PlayerManager : MonoBehaviour {
     public InputHandler Input { get; private set; }
     public DamageSystem Damage { get; private set; }
     public InteractionSystem Interaction { get; private set; }
+    public AnimationSystem Anim { get; private set; }
+    private Rigidbody2D _rb;
+    public AudioManager Audio { get; private set; }
 
     [Header("Move Config")]
     [SerializeField] private float baseMoveSpeed;
@@ -31,14 +34,23 @@ public class PlayerManager : MonoBehaviour {
     private void Awake() {
         currentMoveSpeed = baseMoveSpeed;
         Input = GetComponent<InputHandler>();
+        Anim = GetComponent<AnimationSystem>();
         Interaction = GetComponentInChildren<InteractionSystem>();
         Move = new MoveSystem(GetComponent<Rigidbody2D>(), baseMoveSpeed);
         Damage = new DamageSystem();
         Damage.Init(baseHealth, healAmount, baseOxy);
         Debug.Log("[PlayerManager] Player Initialized");
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update() {
+        if (_rb.linearVelocityX < 0) {
+            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+        }
+        else if (_rb.linearVelocityX > 0) {
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+        }
+
         if (Input.SwitchMask != 0) {
             SwitchMask(Input.SwitchMask);
             Input.ResetSwitchMask();
@@ -46,8 +58,19 @@ public class PlayerManager : MonoBehaviour {
 
         if (Input.Interact) {
             Interaction.TryInteract();
+            Audio.PlayAudioClip(Audio.fixSound);
             Input.ResetInteract();
         }
+
+        if (Input.Heal && !Anim.IsHealing && Damage.Health.AidSprayLeft > 0) {
+            Move.Stop();
+            Damage.Health.Heal();
+            Anim.PlayHeal();
+            Audio.PlayAudioClip(Audio.healSound);
+            Input.ResetHeal();
+        }
+
+        Anim.UpdateMovement(Input.MoveInput);
     }
 
     private void FixedUpdate() {
@@ -55,7 +78,9 @@ public class PlayerManager : MonoBehaviour {
             Damage.ApplyDamage(CurrentPoison);
         }
 
-        Move.Move(Input.MoveInput);
+        if (!Anim.IsHealing) {
+            Move.Move(Input.MoveInput);
+        }
     }
 
     #endregion
