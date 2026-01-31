@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639054418643276322
+  platformSettingsDirtyTick: 639054462664290593
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -139,7 +139,7 @@ ScriptedImporter:
       y: 4
       width: 160
       height: 48
-    spriteID: cc37f7e51e2b9b5448dcff59cddd2452
+    spriteID: 1471b326c25b95d439e8b0120b472cc8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +151,7 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: wall_0
     originalName: 
-    pivot: {x: 0.5, y: 0.33333334}
+    pivot: {x: 0.5, y: 0.3333333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -161,7 +161,7 @@ ScriptedImporter:
       y: 27
       width: 16
       height: 25
-    spriteID: ad36d24c75c611f4a99efea8bba6b350
+    spriteID: 82581e0904c40844884133dae67f4f1f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -182,7 +182,7 @@ ScriptedImporter:
       y: 4
       width: 32
       height: 37
-    spriteID: 719a339f5736af845b0eab92f0f49cba
+    spriteID: f5e1bd305e48d544da229cd5a87dd63e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -193,7 +193,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: wall_2
     originalName: 
-    pivot: {x: 0.5, y: 0.33333334}
+    pivot: {x: 0.5, y: 0.333333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -203,7 +203,7 @@ ScriptedImporter:
       y: 32
       width: 16
       height: 20
-    spriteID: 05f4664acb4b44a4caec84948af7d56c
+    spriteID: 30954484ada5f594cb8c860099ba3521
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -214,7 +214,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: wall_3
     originalName: 
-    pivot: {x: 0.25, y: 0.33333334}
+    pivot: {x: 0.25, y: 0.33333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -224,7 +224,7 @@ ScriptedImporter:
       y: 32
       width: 32
       height: 20
-    spriteID: d5f686778fd74d744bcaf672a0595d75
+    spriteID: b391949997ba0b845970a1511177a53d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -255,7 +255,7 @@ ScriptedImporter:
         y: 112
         width: 160
         height: 48
-      spriteId: cc37f7e51e2b9b5448dcff59cddd2452
+      spriteId: 1471b326c25b95d439e8b0120b472cc8
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
