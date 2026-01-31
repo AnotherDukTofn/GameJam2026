@@ -9,7 +9,7 @@ public class OxySystem {
 
     public event Action<int> OnTankChange;
     public event Action<float, float> OnOxyChange;
-    public event Action OnInventoryFull;
+    public event Action<string> OnWarning;
 
     public OxySystem(float maxOxy) {
         MaxOxy = maxOxy;
@@ -31,7 +31,7 @@ public class OxySystem {
 
     public bool TryAddTank(int max) {
         if (_oxyTankLeft >= max) {
-            OnInventoryFull?.Invoke();
+            OnWarning?.Invoke("Không thể nhặt thêm bình oxy!");
             Debug.Log("[OxySystem] Cannot pick up - Oxy Tank full: " + _oxyTankLeft + "/" + max);
             return false;
         }
@@ -58,6 +58,7 @@ public class OxySystem {
                 ChangeTank();
             } else {
                 CurrentOxy = 0;
+                OnWarning?.Invoke("Hết bình oxy!");
             }
         }
         

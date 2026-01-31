@@ -8,7 +8,7 @@ public class HealthSystem {
     private float _healAmount;
 
     public event Action<float, float> OnHealthChange;
-    public event Action OnInventoryFull;
+    public event Action<string> OnWarning;
     public event Action<int> OnAidSprayChange;
 
     public HealthSystem(float maxHealth, float healAmount) {
@@ -28,7 +28,10 @@ public class HealthSystem {
         }
     }
     public void Heal() {
-        if (AidSprayLeft <= 0) return;
+        if (AidSprayLeft <= 0) {
+            OnWarning?.Invoke("Hết bình máu!");
+            return;
+        }
         float oldHealth = CurrentHealth;
         CurrentHealth += _healAmount;
         AidSprayLeft--;
@@ -46,7 +49,7 @@ public class HealthSystem {
 
     public bool TryAddAidSpray(int max) {
         if (AidSprayLeft >= max) {
-            OnInventoryFull?.Invoke();
+            OnWarning?.Invoke("Không thể nhặt thêm bình máu!");
             Debug.Log("[HealthSystem] Cannot pick up - Aid Spray full: " + AidSprayLeft + "/" + max);
             return false;
         }
