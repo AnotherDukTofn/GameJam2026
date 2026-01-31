@@ -23,10 +23,12 @@ public class InteractionSystem : MonoBehaviour {
         }
     }
 
-    public void TryInteract() {
+    public bool TryInteract() {
         if (_currentInteractable != null) {
-            _currentInteractable.Interact(pm);
-            Debug.Log("[InteractionSystem] Interacted!");
+            bool success = _currentInteractable.Interact(pm);
+            Debug.Log("[InteractionSystem] Interacted! Success: " + success);
+            return success;
         }
+        return false;
     }
 }

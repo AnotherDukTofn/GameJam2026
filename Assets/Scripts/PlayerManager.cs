@@ -26,6 +26,9 @@ public class PlayerManager : MonoBehaviour {
 
     [Header("Status")]
     public Poison CurrentPoison;
+    [SerializeField] private bool _hasKey;
+
+    public bool HasKey => _hasKey;
 
     #endregion
 
@@ -57,8 +60,10 @@ public class PlayerManager : MonoBehaviour {
         }
 
         if (Input.Interact) {
-            Interaction.TryInteract();
-            audio.PlayAudioClip(audio.FixClip);
+            bool success = Interaction.TryInteract();
+            if (success) {
+                audio.PlayAudioClip(audio.FixClip);
+            }
             Input.ResetInteract();
         }
 
