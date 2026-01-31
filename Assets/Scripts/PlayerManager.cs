@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour {
     public MoveSystem Move { get; private set; }
     public InputHandler Input { get; private set; }
     public DamageSystem Damage { get; private set; }
+    public InteractionSystem Interaction { get; private set; }
 
     [Header("Move Config")]
     [SerializeField] private float baseMoveSpeed;
@@ -30,15 +31,22 @@ public class PlayerManager : MonoBehaviour {
     private void Awake() {
         currentMoveSpeed = baseMoveSpeed;
         Input = GetComponent<InputHandler>();
+        Interaction = GetComponentInChildren<InteractionSystem>();
         Move = new MoveSystem(GetComponent<Rigidbody2D>(), baseMoveSpeed);
         Damage = new DamageSystem();
         Damage.Init(baseHealth, healAmount, baseOxy);
+        Debug.Log("[PlayerManager] Player Initialized");
     }
 
     private void Update() {
         if (Input.SwitchMask != 0) {
             SwitchMask(Input.SwitchMask);
             Input.ResetSwitchMask();
+        }
+
+        if (Input.Interact) {
+            Interaction.TryInteract();
+            Input.ResetInteract();
         }
     }
 
@@ -70,6 +78,10 @@ public class PlayerManager : MonoBehaviour {
 
     private void SwitchMask(int id) {
         Damage.Mask.SetMask(id - 1);
+    }
+
+    public void RepairMask() {
+        Damage.Mask.RepairMask();
     }
 
     #endregion

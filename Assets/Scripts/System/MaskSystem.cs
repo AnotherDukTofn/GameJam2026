@@ -13,7 +13,7 @@ public class MaskSystem  {
         green = new GreenMask();
         yellow = new YellowMask();
         purple = new PurpleMask();
-        SetMask(1);
+        SetMask(0);
     }
 
     private Mask FindByID(int id) {
@@ -37,6 +37,14 @@ public class MaskSystem  {
 
         OnMaskChange?.Invoke(id);
         Debug.Log("[MaskSystem] Current Mask: " + currentMask.GetType().Name);
+    }
+
+    public void RepairMask() {
+        Debug.Log("[MaskSystem] Before Repair - Green: " + green.CurrentDurability + ", Yellow: " + yellow.CurrentDurability + ", Purple: " + purple.CurrentDurability);
+        green.Repair();
+        yellow.Repair();
+        purple.Repair();
+        Debug.Log("[MaskSystem] After Repair - Green: " + green.CurrentDurability + ", Yellow: " + yellow.CurrentDurability + ", Purple: " + purple.CurrentDurability);
     }
 
     public bool MaskBlocked(Poison poison) {

@@ -9,7 +9,8 @@ public abstract class Mask {
     public Mask(float cost, int id, float dura) {
         OxyCost = cost;
         PoisonID = id;
-        CurrentDurability = dura;
+        BaseDurability = dura;
+        CurrentDurability = 0.5f * dura;
     }
 
     public void Repair() {

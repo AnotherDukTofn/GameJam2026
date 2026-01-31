@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour {
     public Vector2 MoveInput { get; private set; }
     public int SwitchMask { get; private set; }
+    public bool Interact { get; private set; }
     public void OnMove(InputAction.CallbackContext context) {
         MoveInput = context.ReadValue<Vector2>();
     }
@@ -31,5 +32,16 @@ public class InputHandler : MonoBehaviour {
 
     public void ResetSwitchMask() {
         SwitchMask = 0;
+    }
+
+    public void OnInteract(InputAction.CallbackContext context) {
+        if (context.performed) {
+            Interact = true;
+            Debug.Log("[InputHandler] Interact pressed");
+        }
+    }
+
+    public void ResetInteract() {
+        Interact = false;
     }
 }
