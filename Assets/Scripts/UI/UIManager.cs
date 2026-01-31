@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour {
 
     private void ModifyMaskView(int id) {
         maskIconView.SetMaskView(id);
-    }
+    }   
 
     #endregion
 }
