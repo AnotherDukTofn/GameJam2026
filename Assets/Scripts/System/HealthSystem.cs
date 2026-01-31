@@ -27,6 +27,11 @@ public class HealthSystem {
             Debug.Log("[HealthSystem] Current Health: " + CurrentHealth + "/" + MaxHealth);
         }
     }
+
+    public void SetCurrentHealth(float value) {
+        CurrentHealth = value;
+    }
+
     public void Heal() {
         if (AidSprayLeft <= 0) {
             OnWarning?.Invoke("Hết bình máu!");

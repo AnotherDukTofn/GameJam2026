@@ -25,6 +25,7 @@ public class Tunnel : MonoBehaviour {
     }
 
     private IEnumerator TeleportSequence(Transform player, Hole from, Hole to) {
+        float initHealth = player.GetComponent<PlayerManager>().Damage.Health.CurrentHealth;
         if (_isTeleporting || to == null) yield break;
         _isTeleporting = true;
 
@@ -77,6 +78,7 @@ public class Tunnel : MonoBehaviour {
         player.position = targetPos;
 
         _isTeleporting = false;
+        player.GetComponent<PlayerManager>().Damage.Health.SetCurrentHealth(initHealth);
         Debug.Log("[Tunnel] Teleport sequence complete");
     }
 }

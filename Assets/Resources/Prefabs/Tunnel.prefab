@@ -202,7 +202,7 @@ MonoBehaviour:
   jumpHeight: 1.5
   jumpDuration: 0.3
   fallDuration: 0.2
-  travelSpeed: 50
+  travelSpeed: 150
   riseDuration: 0.3
 --- !u!1 &6156206561749162736
 GameObject:
