@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class UIManager : MonoBehaviour {
     [Header("Oxy UI")]
@@ -14,9 +15,12 @@ public class UIManager : MonoBehaviour {
     [Header("Mask UI")]
     [SerializeField] private MaskIconView maskIconView;
 
-    [Header("Death UI")]
+    [Header("End Game UI")]
     [SerializeField] private CanvasGroup deathPanel;
+    [SerializeField] private CanvasGroup winPanel;
     [SerializeField] private float fadeDuration = 2f;
+    [SerializeField] private TMP_Text TMP_TimeSurvived;
+    [SerializeField] private TMP_Text TMP_TimeEscaped;
 
     [Header("Interaction UI")]
     [SerializeField] private GameObject interactPrompt;
@@ -31,6 +35,8 @@ public class UIManager : MonoBehaviour {
     
     private OxySystem playerOxy;
     private HealthSystem playerHealth;
+    private float _elapsedTime = 0f;
+    private bool _gameEnded = false;
 
     #region Unity Lifecycles 
 
@@ -69,6 +75,10 @@ public class UIManager : MonoBehaviour {
 
     private void Update() {
         oxyBar.ModifyFillAmount(playerOxy.CurrentOxy, playerOxy.MaxOxy);
+        
+        if (!_gameEnded) {
+            _elapsedTime += Time.deltaTime;
+        }
     }
 
     #endregion
@@ -92,6 +102,8 @@ public class UIManager : MonoBehaviour {
     }
 
     private void ShowDeathPanel() {
+        _gameEnded = true;
+        TMP_TimeSurvived.text = $"You have survived for {FormatTime(_elapsedTime)}";
         StartCoroutine(FadeInDeathPanel());
     }
 
@@ -106,6 +118,31 @@ public class UIManager : MonoBehaviour {
             yield return null;
         }
         deathPanel.alpha = 1f;
+    }
+
+    public void ShowWinPanel() {
+        _gameEnded = true;
+        TMP_TimeEscaped.text = $"You have escaped after {FormatTime(_elapsedTime)}";
+        StartCoroutine(FadeInWinPanel());
+    }
+
+    private IEnumerator FadeInWinPanel() {
+        winPanel.gameObject.SetActive(true);
+        winPanel.alpha = 0f;
+        
+        float elapsed = 0f;
+        while (elapsed < fadeDuration) {
+            elapsed += Time.deltaTime;
+            winPanel.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeDuration);
+            yield return null;
+        }
+        winPanel.alpha = 1f;
+    }
+
+    private string FormatTime(float time) {
+        int minutes = Mathf.FloorToInt(time / 60f);
+        int seconds = Mathf.FloorToInt(time % 60f);
+        return $"{minutes:00}:{seconds:00}";
     }
 
     private void ShowInteractPrompt() {
